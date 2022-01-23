@@ -28,6 +28,6 @@ steps:
     publishWebProjects: true
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: '83aa1c53-16e0-4478-94f9-c40fe301b5ee'
+    azureSubscription: 'sm-dot-net-sc'
     appName: 'sm-dot-net-app-service'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
