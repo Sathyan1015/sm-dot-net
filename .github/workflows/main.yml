@@ -1,20 +1,18 @@
-name: Build and Deploy code on Stage Server
+name: CI
 on:
   push:
-    branches: [ "stage" ]
+    branches: [ "develop" ]
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to AWS EC2
-        if: github.ref == 'refs/heads/main'
+      - name: COPY stage PEM key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+      - name: Deploy to Server
         run: |
           REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
-          echo "Repository Name: $REPO_NAME"
-          echo "${{ github.repository }}"
-      - name: Deploy to AWS EC2 develop
-        if: github.ref == 'refs/heads/develop'
-        run: |
-          echo "Hi sathyan"
-
+          ssh -o StrictHostKeyChecking=no  -i ~/.ssh/aws.pem alyf_user@13.91.220.141 ' $REPO_NAME"'
