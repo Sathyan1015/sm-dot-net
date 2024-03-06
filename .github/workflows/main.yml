@@ -10,8 +10,11 @@ jobs:
       - name: Deploy to AWS EC2
         if: github.ref == 'refs/heads/main'
         run: |
-          pwd
+          REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
+          echo "Repository Name: $REPO_NAME"
+          echo "${{ github.repository }}"
       - name: Deploy to AWS EC2 develop
         if: github.ref == 'refs/heads/develop'
         run: |
           echo "Hi sathyan"
+
