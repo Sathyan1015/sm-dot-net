@@ -15,4 +15,4 @@ jobs:
       - name: Deploy to Server
         run: |
           REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
-          ssh -o StrictHostKeyChecking=no  -i ~/.ssh/aws.pem alyf_user@13.91.220.141 ' $REPO_NAME"'
+          ssh -o StrictHostKeyChecking=no  -i ~/.ssh/id_rsa alyf_user@13.91.220.141 ' $REPO_NAME"'
