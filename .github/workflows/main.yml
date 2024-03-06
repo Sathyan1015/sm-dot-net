@@ -11,3 +11,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           pwd
+      - name: Deploy to AWS EC2 develop
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          echo "Hi sathyan"
