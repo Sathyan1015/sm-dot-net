@@ -7,12 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: COPY stage PEM key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.STAGE_KEY }}" > ~/.ssh/aws.pem
-          chmod 400 ~/.ssh/aws.pem
-          openssl rsa -check -in ~/.ssh/aws.pem
       - name: Deploy to AWS EC2
+        if: github.ref == 'refs/heads/main'
         run: |
-          ssh -o StrictHostKeyChecking=no  -i ~/.ssh/aws.pem ubuntu@13.127.234.142 'cd WBOT_API && git pull && docker compose up -d --no-deps --build api && docker ps'
+          pwd
