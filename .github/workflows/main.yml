@@ -17,7 +17,7 @@ jobs:
           REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
           echo "Repository Name: $REPO_NAME"
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa alyf_user@13.91.220.141 "
-          echo \"Changing to directory: /path/to/your/repo/\$REPO_NAME\" &&
+          echo \"Changing to directory: /path/to/your/repo/$REPO_NAME\" &&
           cd /path/to/your/repo/\$REPO_NAME && pwd ||
           (echo 'Failed to change directory' && exit 1)
           "
