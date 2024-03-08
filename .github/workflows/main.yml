@@ -17,8 +17,8 @@ jobs:
           REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
           PR=$(echo ${{github.event.pull_request.number }})
           BRANCH_NAME=$(echo ${{ github.ref }} | cut -d'/' -f3)
-          CLONE_URL="https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git"
-          CLONE_ALYF_API_SERVER_URL="https://${{ secrets.GH_TOKEN }}@github.com/alyf-lab/alyf_api_server.git"
+          CLONE_URL="https://${{ secrets.GH_TOKEN }}@github.com/alyf-lab/alyf_api_server.git"
+          CLONE_ALYF_API_SERVER_URL="https://${{ secrets.GH_TOKEN }}@github.com/alyf-lab/alyf_pyutils.git"
           git clone $CLONE_URL
           cd $REPO_NAME
           git fetch origin pull/122/head:pr-122
