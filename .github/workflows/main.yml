@@ -10,12 +10,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  print-pr-number:
     runs-on: ubuntu-latest
-     steps:
-      - name: Checkout main code repository
-        uses: actions/checkout@v2
+
     steps:
-      - name: COPY stage PEM key
-        run: |
-          ls -lta
+      - name: Show Pull Request Number
+        run: echo "Pull Request Number: ${{ github.event.pull_request.number }}"
