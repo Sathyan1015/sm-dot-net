@@ -14,5 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Show Pull Request Number
-        run: echo "Pull Request Number: ${{ github.event.pull_request.number }}"
+      - name: COPY stage PEM key
+        run: |
+          echo " URL :${{ github.event.pull_request.number }}
