@@ -12,7 +12,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+     steps:
+      - name: Checkout main code repository
+        uses: actions/checkout@v2
     steps:
       - name: COPY stage PEM key
         run: |
-          echo " URL :${{ github.event.pull_request.html_url}}
+          ls -lta
