@@ -17,7 +17,7 @@ jobs:
           REPO_NAME="alyf_pyutils"
           PR=$(echo ${{github.event.pull_request.number }})
           echo $PR
-          git clone "https://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@github.com/alyf-lab/${REPO_NAME}.git"
+          git clone "https://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@github.com/alyf-lab/alyf_pyutils.git"
           cd $REPO_NAME
           git fetch origin pull/122/head:pr-122
           git checkout pr-122
