@@ -37,21 +37,7 @@ jobs:
               ;;
           esac
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa alyf_user@13.91.220.141 "
-            echo \"$BRANCH_NAME\" &&
+            echo \"$IP\" &&
             pwd && 
             cd $REPO_NAME &&
-            pwd && 
-            cp .env /tmp/.env &&
-            docker compose down &&
-            docker system prune -f &&
-            cd .. &&
-            rm -rf $REPO_NAME &&
-            git clone $CLONE_URL &&
-            cd $REPO_NAME &&
-            git checkout $BRANCH_NAME &&
-            cp /tmp/.env .env &&
-            docker compose build --no-cache &&
-            docker compose up -d &&
-            sleep 10 &&
-            docker ps
           "
