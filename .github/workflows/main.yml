@@ -38,6 +38,5 @@ jobs:
           esac
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa alyf_user@13.91.220.141 "
             echo \"$IP\" &&
-            pwd && 
-            cd $REPO_NAME &&
+            pwd 
           "
