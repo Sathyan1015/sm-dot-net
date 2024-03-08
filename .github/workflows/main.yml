@@ -16,7 +16,7 @@ jobs:
         run: |
           REPO_NAME="alyf_pyutils"
           PR=$(echo ${{github.event.pull_request.number }})
-          git clone "https://${{ secrets.GH_TOKEN }}@github.com/alyf-lab/${REPO_NAME}.git"
+          git clone "https://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@github.com/alyf-lab/${REPO_NAME}.git"
           cd $REPO_NAME
           git fetch origin pull/122/head:pr-122
           git checkout pr-122
@@ -24,7 +24,7 @@ jobs:
           cd ..
 
       - name: Clone alyf_api_server
-        run: git clone "https://${{ secrets.GH_TOKEN }}@github.com/alyf-lab/alyf_api_server.git"
+        run: git clone "https://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@github.com/alyf-lab/alyf_api_server.git"
 
       - name: Copy content from alyf_pyutils to alyf_api_server
         run: cp -r $REPO_NAME alyf_api_server/
