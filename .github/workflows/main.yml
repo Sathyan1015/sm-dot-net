@@ -36,7 +36,7 @@ jobs:
               exit 1
               ;;
           esac
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa alyf_user@13.91.220.141 "
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa alyf_user@$IP "
             echo \"$IP\" &&
             pwd 
           "
