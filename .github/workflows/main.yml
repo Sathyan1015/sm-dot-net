@@ -1,35 +1,45 @@
 name: CI
 
 on:
-  # Triggers the workflow on push or pull request events but only for the "develop" branch
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Server
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Clone alyf_pyutils and checkout pull request branch
         run: |
-          REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
+          REPO_NAME="alyf_pyutils"
           PR=$(echo ${{github.event.pull_request.number }})
-          BRANCH_NAME=$(echo ${{ github.ref }} | cut -d'/' -f3)
-          CLONE_URL="https://${{ secrets.GH_TOKEN }}@github.com/alyf-lab/alyf_api_server.git"
-          CLONE_ALYF_API_SERVER_URL="https://${{ secrets.GH_TOKEN }}@github.com/alyf-lab/alyf_pyutils.git"
-          git clone $CLONE_URL
+          git clone "https://${{ secrets.GH_TOKEN }}@github.com/alyf-lab/${REPO_NAME}.git"
           cd $REPO_NAME
           git fetch origin pull/122/head:pr-122
           git checkout pr-122
           cat README.md
           cd ..
-          git clone $CLONE_ALYF_API_SERVER_URL
-          cp -r $REPO_NAME alyf_api_server/
-          cd alyf_api_server/
-          sed -i 's|git+https://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@github.com/alyf-lab/alyf_pyutils.git|#git+https://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@github.com/alyf-lab/alyf_pyutils.git\n/app/alyf_pyutils/|'requirements/prod.txt
-          cat requirements/prod.txt
-          source .env
-          export ALYF_USER=sdesai
-          ./new_deploy.sh
+
+      - name: Clone alyf_api_server
+        run: git clone "https://${{ secrets.GH_TOKEN }}@github.com/alyf-lab/alyf_api_server.git"
+
+      - name: Copy content from alyf_pyutils to alyf_api_server
+        run: cp -r $REPO_NAME alyf_api_server/
+
+      - name: Update requirements in alyf_api_server
+        run: sed -i 's|git+https://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@github.com/alyf-lab/alyf_pyutils.git|#git+https://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@github.com/alyf-lab/alyf_pyutils.git\n/app/alyf_pyutils/|' alyf_api_server/requirements/prod.txt
+
+      - name: Display updated requirements
+        run: cat alyf_api_server/requirements/prod.txt
+
+      - name: Source .env
+        run: source alyf_api_server/.env
+
+      - name: Set environment variable
+        run: echo "ALYF_USER=sdesai" >> $GITHUB_ENV
+
+      - name: Execute deployment script
+        run: alyf_api_server/new_deploy.sh
